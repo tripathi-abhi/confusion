@@ -58,12 +58,12 @@ constructor(props){
             errors.lastName = " Last Name should be between 3 (min.) to 10 (max.) chracters";
         }
 
-        const reg = /^\d+$/;
+        const reg = /^\d{10}$/;
         if(this.state.touched.telNum && !reg.test(telNum)){
-            errors.telNum = "Tel. Number should contain only numbers";
+            errors.telNum = "Tel. Number should contain only numbers (length 10)";
         }
-
-        if(this.state.touched.email && email.split('').filter(x => x === '@').length !== 1){
+        const correctEmail= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if(this.state.touched.email && !correctEmail.test(email)){
             errors.email = "Email must be of the form xyz@abc.ab";
         }
 
