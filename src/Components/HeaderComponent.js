@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand , Jumbotron, Nav, NavbarToggler, NavItem, Collapse, Modal, Button, ModalHeader, ModalBody, Form, Input, FormGroup, Label} from 'reactstrap';
+import { Navbar, NavbarBrand , Jumbotron, Nav, NavbarToggler, NavItem, Collapse, Modal, Button, ModalHeader, ModalBody, Label, Row, Col} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { Control, Errors, LocalForm} from 'react-redux-form'
 
+const required = (val) => val && val.length;
 class Header extends Component {
 
     constructor(props){
@@ -20,7 +22,6 @@ class Header extends Component {
     toggleNav(){
         this.setState({
             isNavOpen: !this.state.isNavOpen
- 
         });
     }
 
@@ -31,10 +32,9 @@ class Header extends Component {
         });
     }
 
-    handleLogin(event){
+    handleLogin(values){
         this.toggleModal();
-        alert(" " + this.username.value + " " + this.password.value + " " + this.remember.checked);
-        event.preventDefault();
+        alert("The state is: " + JSON.stringify(values) );
     }
 
     render(){
@@ -84,26 +84,58 @@ class Header extends Component {
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                 <ModalBody>
-                    <Form onSubmit={this.handleLogin}>
-                        <FormGroup>
-                            <Label htmlFor="username">Username</Label>
-                            <Input type="text" id="username" name="username" innerRef={(input) => this.username= input} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label htmlFor="password">Password</Label>
-                            <Input type="password" id="password" name="password" innerRef={(input) => this.password= input} />
-                            
-                        </FormGroup>
-                        <FormGroup check>
-                            <Label check>
-                            <Input type="checkbox" name="remember" innerRef={(input) => this.remember= input} />
+                    <LocalForm onSubmit={this.handleLogin}>
+                        <Row className="form-group">
+                            <Label htmlFor="username" md={12}>Username</Label>
+                            <Col md={12}>
+                            <Control.text model=".username" name="username"
+                            className="form-control"
+                            validators={{
+                                required,
+                            }}
+                            />
+                            <Errors 
+                            className="text-danger"
+                            model=".username"
+                            show="touched"
+                            messages={{
+                                required: "* Required field",
+                            }}
+                            />
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="password" md={12}>Password</Label>
+                            <Col md={12}>
+                            <Control.password model=".password" name="password"
+                            className="form-control"
+                            validators={{
+                                required,
+                            }}
+                            />
+                            <Errors 
+                            className="text-danger"
+                            model=".password"
+                            show="touched"
+                            messages={{
+                                required: "* Required field",
+                            }}
+                            />
+                            </Col>
+                        </Row>
+                        <Row className="form-check">
+                            <Label check htmlFor="remember">
+                            <Control.checkbox model=".remember" name="remember"
+                            />
                             Remember me
-                            </Label>  
-                        </FormGroup>
-                        <FormGroup className="mt-1">
+                            </Label>
+                        </Row>
+                        <Row className="form-group mt-1">
+                            <Col md={12}>
                             <Button type="submit" value="submit" color="primary">Login In</Button>
-                        </FormGroup>
-                    </Form>
+                            </Col>
+                        </Row>
+                    </LocalForm>
                 </ModalBody>
             </Modal>
             </React.Fragment>
