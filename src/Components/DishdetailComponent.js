@@ -27,7 +27,7 @@ toggleModal(){
 
 handleSubmit(values){
     this.toggleModal();
-    alert("The state is: "+ JSON.stringify(values));
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
 }
 
 
@@ -110,7 +110,7 @@ render(){
 
 
 
-    function RenderComment({comments}){
+    function RenderComment({comments,addComment,dishId}){
         if(comments!=null){
             return(
                 <div className="col-12 col-md-5 m-1">
@@ -126,7 +126,7 @@ render(){
                     
                 })}
                 </ul>
-            <CommentForm />
+            <CommentForm addComment={addComment} dishId={dishId}/>
             </div>
             );
      }
@@ -150,7 +150,7 @@ render(){
                 </div>
                         <div className="row">
                             <RenderDish dish={props.dish} />
-                            <RenderComment comments={props.comments} />
+                            <RenderComment comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
                     </div>
                     </div>    
                 );
