@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Button, ModalHeader, ModalBody, Label, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LocalForm, Errors, Control }  from 'react-redux-form';
+import { Loading } from './LoaderComponent.js';
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => !(val) || (val.length>=len);
@@ -27,7 +28,7 @@ toggleModal(){
 
 handleSubmit(values){
     this.toggleModal();
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.commentText);
 }
 
 
@@ -133,6 +134,27 @@ render(){
     }
 
     function DishDetail  (props) {
+        if(props.isLoading){
+            return (
+                <div className="container">
+                   <div className="row">
+                       <Loading />
+                   </div>
+                </div>
+            );
+        }
+        
+        else if(props.ErrMsg){
+            return(
+                <div className="container">
+                   <div className="row">
+                       <h4>{props.ErrMsg}</h4>
+                   </div>
+                </div>
+            );
+        }
+
+        else {
         if(props.dish!=null){
                 return (
                     <div className="container">
@@ -156,5 +178,6 @@ render(){
                 );
             }
         }
+    }
 
 export default DishDetail;

@@ -48,7 +48,7 @@ function About (props){
                         <CardHeader className="bg-primary text-white">Facts At a Glance</CardHeader>
                         <CardBody>
                             <dl className="row">
-                            <dt className="col-6">Started</dt>
+                                <dt className="col-6">Started</dt>
                                 <dd className="col-6">3 Feb. 2013</dd>
                                 <dt className="col-6">Major Stake Holder</dt>
                                 <dd className="col-6">HK Fine Foods Inc.</dd>
