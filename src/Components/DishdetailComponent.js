@@ -3,6 +3,7 @@ import { Modal, Button, ModalHeader, ModalBody, Label, Row, Col, Breadcrumb, Bre
 import { Link } from 'react-router-dom';
 import { LocalForm, Errors, Control }  from 'react-redux-form';
 import { Loading } from './LoaderComponent.js';
+import { baseUrl } from '../Shared/baseUrl';
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => !(val) || (val.length>=len);
@@ -26,7 +27,7 @@ toggleModal(){
 }
 
 
-handleSubmit(values){
+handleSubmit(values) {
     this.toggleModal();
     this.props.addComment(this.props.dishId, values.rating, values.author, values.commentText);
 }
@@ -41,7 +42,7 @@ render(){
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
             <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
             <ModalBody>
-                <LocalForm onSubmit={this.handleSubmit}>
+                <LocalForm model="modal" onSubmit={this.handleSubmit}>
                     <Row className="form-group">
                         <Label htmlFor="rating" md={12}>Rating</Label>
                         <Col md={12}>
@@ -98,7 +99,7 @@ render(){
             return (
                     <div className="col-12 col-md-5 m-1">
                         <Card>
-                            <CardImg top src= {dish.image} alt={dish.name}/>
+                            <CardImg top src= {baseUrl + dish.image} alt={dish.name}/>
                             <CardBody>
                                 <CardTitle>{dish.name}</CardTitle>
                                 <CardText>{dish.description}</CardText>
@@ -112,7 +113,6 @@ render(){
 
 
     function RenderComment({comments,addComment,dishId}){
-        if(comments!=null){
             return(
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
@@ -130,7 +130,6 @@ render(){
             <CommentForm addComment={addComment} dishId={dishId}/>
             </div>
             );
-     }
     }
 
     function DishDetail  (props) {

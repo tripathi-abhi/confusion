@@ -9,7 +9,7 @@ class Header extends Component {
     constructor(props){
         super(props);
         this.state= {
-            isNavOpen: true,
+            isNavOpen: false,
             isModalOpen: false
             
         }
@@ -61,6 +61,8 @@ class Header extends Component {
                         <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
                     </NavItem>      
                 </Nav>
+                
+                </Collapse>
                 <Nav className="ml-auto">
                 <NavItem>
                         <Button outline onClick={this.toggleModal}>
@@ -68,7 +70,6 @@ class Header extends Component {
                         </Button>
                 </NavItem>
                 </Nav>
-                </Collapse>
                 </div>
             </Navbar>
             <Jumbotron>
