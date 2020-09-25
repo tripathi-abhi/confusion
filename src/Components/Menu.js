@@ -5,7 +5,7 @@ import { Loading } from './LoaderComponent.js';
 import { baseUrl } from '../Shared/baseUrl';
 
 
-function RenderCard ({dish,onClick}) {
+function RenderCard ({dish}) {
     return (
         <Card>
             <Link to={`/menu/${dish.id}`} >

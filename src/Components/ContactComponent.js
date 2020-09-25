@@ -13,8 +13,16 @@ class Contact extends Component {
 
 
     handleSubmit(values) {
-        alert("The current state is: "+ JSON.stringify(values));
         this.props.resetFeedbackForm();
+        this.props.postFeedback(
+            values.firstName,
+            values.lastName,
+            values.telnum,
+            values.email,
+            values.agree,
+            values.contactType,
+            values.message
+            )
     }
 
     render(){
@@ -109,7 +117,7 @@ class Contact extends Component {
                         <Row className="form-group">
                             <Label htmlFor="telNum" md={2}>Tel. Number</Label>
                             <Col md={10}>
-                                <Control.text model=".telnum" id="telNum" name="telNum" placeholder="Tel Num"  
+                                <Control.text model=".telnum" id="telnum" name="telnum" placeholder="Tel Num"  
                                 className="form-control" 
                                 validators= {{
                                     Required,minLength: minLength(3), maxLength: maxLength(15), isNum
