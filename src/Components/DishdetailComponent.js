@@ -29,7 +29,7 @@ toggleModal(){
 
 handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.commentText);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.commentText);
 }
 
 
@@ -112,7 +112,7 @@ render(){
 
 
 
-    function RenderComment({comments,addComment,dishId}){
+    function RenderComment({comments,postComment,dishId}){
             return(
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
@@ -127,7 +127,7 @@ render(){
                     
                 })}
                 </ul>
-            <CommentForm addComment={addComment} dishId={dishId}/>
+            <CommentForm postComment={postComment} dishId={dishId}/>
             </div>
             );
     }
@@ -171,7 +171,7 @@ render(){
                 </div>
                         <div className="row">
                             <RenderDish dish={props.dish} />
-                            <RenderComment comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
+                            <RenderComment comments={props.comments} postComment={props.postComment} dishId={props.dish.id}/>
                     </div>
                     </div>    
                 );
